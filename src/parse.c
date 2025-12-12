@@ -6,7 +6,7 @@
 /*   By: wael <wael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 16:49:30 by wael              #+#    #+#             */
-/*   Updated: 2025/11/22 18:36:22 by wael             ###   ########.fr       */
+/*   Updated: 2025/12/12 20:43:17 by wael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,39 +28,23 @@ int	get_width(char *buf)
 	return (count);
 }
 
-// int	get_height(char *buf)
-// {
-// 	int		count;
-
-// 	count = 0;
-// 	while (*buf)
-// 	{
-// 		if (*buf == '\n')
-// 			count++;
-// 		buf++;
-// 	}
-// 	return (count);
-// }
-
-void parse_map(char *file, t_fdf *fdf)
+void	parse_map(char *file, t_fdf *fdf)
 {
-    int fd;
-    char *line;
+	int		fd;
+	char	*line;
 
-    fd = open(file, O_RDONLY);
-    if (fd < 0)
-        return;
-
-    fdf->height = 0;
-    line = get_next_line(fd);
-    if (line)
-        fdf->width = get_width(line);
-
-    while (line)
-    {
-        fdf->height++;
-        free(line);
-        line = get_next_line(fd);
-    }
-    close(fd);
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		ft_error();
+	fdf->height = 0;
+	line = get_next_line(fd);
+	if (line)
+		fdf->width = get_width(line);
+	while (line)
+	{
+		fdf->height++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
 }

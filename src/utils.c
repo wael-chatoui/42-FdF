@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wael <wael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/12 18:25:10 by wael              #+#    #+#             */
-/*   Updated: 2025/12/12 18:32:25 by wael             ###   ########.fr       */
+/*   Created: 2025/12/12 18:28:07 by wael              #+#    #+#             */
+/*   Updated: 2025/12/12 18:32:04 by wael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_map(mlx_image_t *img)
+void	ft_error(void)
 {
-	mlx_put_pixel(img, 0, 0, 0xFF0000FF);
+	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
+	exit(EXIT_FAILURE);
 }
