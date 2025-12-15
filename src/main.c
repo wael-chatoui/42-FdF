@@ -6,47 +6,49 @@
 /*   By: wael <wael@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 15:46:12 by wael              #+#    #+#             */
-/*   Updated: 2025/12/12 20:46:57 by wael             ###   ########.fr       */
+/*   Updated: 2025/12/15 10:24:03 by wael             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "../minilibx-linux/mlx.h"
 
-void	key_handler(mlx_key_data_t keydata, void *param)
+static void	check_args(int argc, char **argv)
 {
-	t_fdf	*fdf;
+	int	len;
 
-	fdf = (t_fdf *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(fdf->mlx);
+	if (argc != 2)
+	{
+		ft_putendl_fd("Usage: ./fdf <map.fdf>", 2);
+		exit(EXIT_FAILURE);
+	}
+	len = ft_strlen(argv[1]);
+	if (len < 5 || ft_strncmp(argv[1] + len - 4, ".fdf", 4) != 0)
+	{
+		ft_putendl_fd("Error: Invalid file format (must be .fdf)", 2);
+		exit(EXIT_FAILURE);
+	}
 }
 
-static void ft_hook(void* param)
+static void	setup_hooks(t_fdf *fdf)
 {
-	const mlx_t* mlx = param;
-
-	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
+	mlx_hook(fdf->win, 2, 1L << 0, (int (*)())(void*)key_press, fdf);
+	mlx_hook(fdf->win, 4, 1L << 2, (int (*)())(void*)mouse_press, fdf);
+	mlx_hook(fdf->win, 5, 1L << 3, (int (*)())(void*)mouse_release, fdf);
+	mlx_hook(fdf->win, 6, 1L << 6, (int (*)())(void*)mouse_move, fdf);
+	mlx_hook(fdf->win, 17, 0, (int (*)())(void*)close_window, fdf);
 }
 
 int	main(int argc, char **argv)
 {
-	t_fdf		fdf;
-	mlx_image_t	*img;
+	t_fdf	fdf;
 
-	if (argc != 2)
-		return (1);
-	ft_bzero(&fdf, sizeof(fdf));
+	check_args(argc, argv);
+	ft_bzero(&fdf, sizeof(t_fdf));
 	parse_map(argv[1], &fdf);
-	init_mlx(&fdf);
-	if (!fdf.mlx)
-		ft_error();
-	img = mlx_new_image(fdf.mlx, 256, 256);
-	if (!img || mlx_image_to_window(fdf.mlx, img, 0, 0) < 0)
-		ft_error();
-	draw_map(img);
-	mlx_key_hook(fdf.mlx, key_handler, &fdf);
-	mlx_loop_hook(fdf.mlx, ft_hook, fdf.mlx);
+	init_fdf(&fdf);
+	draw(&fdf);
+	setup_hooks(&fdf);
 	mlx_loop(fdf.mlx);
-	mlx_terminate(fdf.mlx);
 	return (0);
 }
