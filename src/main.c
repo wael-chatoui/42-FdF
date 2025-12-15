@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wael <wael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wchatoui <wchatoui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 15:46:12 by wael              #+#    #+#             */
-/*   Updated: 2025/12/15 10:24:03 by wael             ###   ########.fr       */
+/*   Updated: 2025/12/15 22:31:43 by wchatoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,6 @@ static void	check_args(int argc, char **argv)
 	}
 }
 
-static void	setup_hooks(t_fdf *fdf)
-{
-	mlx_hook(fdf->win, 2, 1L << 0, (int (*)())(void*)key_press, fdf);
-	mlx_hook(fdf->win, 4, 1L << 2, (int (*)())(void*)mouse_press, fdf);
-	mlx_hook(fdf->win, 5, 1L << 3, (int (*)())(void*)mouse_release, fdf);
-	mlx_hook(fdf->win, 6, 1L << 6, (int (*)())(void*)mouse_move, fdf);
-	mlx_hook(fdf->win, 17, 0, (int (*)())(void*)close_window, fdf);
-}
-
 int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
@@ -48,7 +39,8 @@ int	main(int argc, char **argv)
 	parse_map(argv[1], &fdf);
 	init_fdf(&fdf);
 	draw(&fdf);
-	setup_hooks(&fdf);
+	mlx_hook(fdf.win, 17, 0, (int (*)())(void *)close_window, &fdf);
+	mlx_key_hook(fdf.win, handle_key, &fdf);
 	mlx_loop(fdf.mlx);
 	return (0);
 }

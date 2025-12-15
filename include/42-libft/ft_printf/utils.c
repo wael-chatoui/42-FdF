@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wael <wael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wchatoui <wchatoui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:30:11 by wael              #+#    #+#             */
-/*   Updated: 2025/11/23 15:48:13 by wael             ###   ########.fr       */
+/*   Updated: 2025/12/15 22:44:31 by wchatoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	print_str(char *str)
 {
 	int	len;
 
+	len = 0;
 	if (!str)
 		return (write(1, "(null)", 6));
 	while (str[len])

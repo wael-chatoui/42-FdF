@@ -72,4 +72,3 @@ Tips / Troubleshooting
 - If the binary cannot open a window, check your display/X11 configuration and that your environment supports OpenGL/X11 on Linux.
 
 Update this README with final controls, build flags, and any runtime options once the project is finished.
-# 42-FdF

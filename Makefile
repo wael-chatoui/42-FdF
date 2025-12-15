@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wael <wael@student.42.fr>                  +#+  +:+       +#+         #
+#    By: wchatoui <wchatoui@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/22 21:22:21 by wael              #+#    #+#              #
-#    Updated: 2025/12/14 17:51:55 by wael             ###   ########.fr        #
+#    Updated: 2025/12/15 22:47:36 by wchatoui         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,13 +32,14 @@ MLX			=	$(MLX_DIR)/libmlx.a
 # Source files
 SRCS		=	main.c \
 				parse.c \
+				parse2.c \
 				draw.c \
+				draw2.c \
 				utils.c \
 				mlx_init.c \
 				transform.c \
 				color.c \
-				hooks.c \
-				draw_utils.c
+				hooks.c
 
 # Object files
 OBJS		=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -61,6 +62,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 			@echo "Compiled: $<"
 
 $(LIBFT):
+			tar -xzf minilibx-linux.tgz
 			@echo "Building libft..."
 			@make -C $(LIBFT_DIR) --no-print-directory
 

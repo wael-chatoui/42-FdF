@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wael <wael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wchatoui <wchatoui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 18:28:07 by wael              #+#    #+#             */
-/*   Updated: 2025/12/15 10:25:03 by wael             ###   ########.fr       */
+/*   Updated: 2025/12/15 20:45:55 by wchatoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,19 @@ void	free_map(t_fdf *fdf)
 	}
 	free(fdf->map);
 	fdf->map = NULL;
+}
+
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	if (!split)
+		return ;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

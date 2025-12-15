@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wael <wael@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wchatoui <wchatoui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 16:27:23 by wael              #+#    #+#             */
-/*   Updated: 2025/12/15 10:23:28 by wael             ###   ########.fr       */
+/*   Updated: 2025/12/15 22:38:34 by wchatoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
-# define MENU_WIDTH 250
 
 # include "libft.h"
 # include <math.h>
@@ -119,30 +118,25 @@ typedef struct s_fdf
 
 /* Parsing functions */
 void	parse_map(char *file, t_fdf *fdf);
-void	read_map(char *file, t_fdf *fdf);
 int		get_map_width(char *line);
 int		get_map_height(char *file);
 void	fill_map(char *file, t_fdf *fdf);
 int		get_color(char *str);
-/* ft_atoi_base is already declared in libft.h */
+void	parse_line(char *line, t_point *points, int y, t_fdf *fdf);
 
 /* Initialization functions */
 void	init_fdf(t_fdf *fdf);
 void	init_cam(t_fdf *fdf);
-void	init_mouse(t_fdf *fdf);
 
 /* Drawing functions */
 void	draw(t_fdf *fdf);
 void	draw_line(t_fdf *fdf, t_point p1, t_point p2);
 void	put_pixel(t_fdf *fdf, int x, int y, int color);
 void	clear_image(t_fdf *fdf);
-void	draw_menu(t_fdf *fdf);
+void	draw_grid(t_fdf *fdf);
 
 /* Transformation functions */
 t_point	project(t_point p, t_fdf *fdf);
-void	rotate_x(int *y, int *z, double alpha);
-void	rotate_y(int *x, int *z, double beta);
-void	rotate_z(int *x, int *y, double gamma);
 void	iso_project(int *x, int *y, int z);
 t_point	transform_point(t_point p, t_fdf *fdf);
 
@@ -152,18 +146,14 @@ int		get_default_color(int z, t_fdf *fdf);
 double	get_percent(int start, int end, int current);
 
 /* Hook functions */
-int		key_press(int key, t_fdf *fdf);
-int		mouse_press(int button, int x, int y, t_fdf *fdf);
-int		mouse_release(int button, int x, int y, t_fdf *fdf);
-int		mouse_move(int x, int y, t_fdf *fdf);
 int		close_window(t_fdf *fdf);
+int		handle_key(int keycode, t_fdf *fdf);
 
 /* Utility functions */
 void	ft_error(char *msg);
 void	free_map(t_fdf *fdf);
-/* ft_abs is already declared in libft.h */
 int		ft_max(int a, int b);
 int		ft_min(int a, int b);
-void	reset_cam(t_fdf *fdf);
+void	free_split(char **split);
 
 #endif
